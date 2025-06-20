@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>BetShujaa - Kenya's Premier Sports Betting Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #1e88e5;
+      --primary-dark: #1565c0;
+      --accent: #ffab00;
+      --accent-dark: #ff8f00;
+      --dark: #121212;
+      --dark-light: #1e1e1e;
+      --light: #f5f5f5;
+      --success: #4caf50;
+      --danger: #f44336;
+      --warning: #ff9800;
+      --live: #f44336;
+      --border-radius: 8px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--dark);
+      color: var(--light);
+      line-height: 1.6;
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      src: url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    }
+
+    /* Header Styles */
+    header {
+      background-color: var(--dark-light);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
+
+    .logo h1 {
+      font-size: 1.5rem;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .user-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .balance {
+      background: var(--primary-dark);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.9rem;
+    }
+
+    .balance i {
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, var(--dark-light), var(--dark));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1600&auto=format&fit=crop') center/cover;
+      opacity: 0.15;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h2 {
+      color: white;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Button Styles */
+    .btn {
+      padding: 0.8rem 1.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: var(--border-radius);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: var(--dark);
+    }
+
+    .btn-accent:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 171, 0, 0.3);
+    }
+
+    .btn-outline {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: rgba(30, 136, 229, 0.1);
+    }
+
+    /* Features Section */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--dark-light);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      margin-bottom: 1rem;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .feature-card p {
+      opacity: 0.8;
+      font-size: 0.95rem;
+    }
+
+    /* Sports Tabs */
+    .sports-tabs {
+      display: flex;
+      justify-content: center;
+      background: var(--dark-light);
+      padding: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      position: sticky;
+      top: 68px;
+      z-index: 90;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .sports-tabs button {
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.9rem;
+    }
+
+    .sports-tabs button.active, 
+    .sports-tabs button:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Matches Container */
+    .matches-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding: 0 1rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.5rem;
+      color: white;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .view-all {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    .view-all:hover {
+      color: var(--accent);
+    }
+
+    /* Matches Grid */
+    .matches-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1rem;
+    }
+
+    .match {
+      background: var(--dark-light);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .match:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    .match-header {
+      padding: 1rem;
+      background: rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .match-league {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .match-league img {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      object-fit: contain;
+    }
+
+    .match-time {
+      font-size: 0.85rem;
+      opacity: 0.8;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .match.live .match-time {
+      color: var(--live);
+      font-weight: 600;
+    }
+
+    .match-body {
+      padding: 1.5rem 1rem;
+    }
+
+    .teams {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .team {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 30%;
+    }
+
+    .team-logo {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 0.5rem;
+      object-fit: contain;
+    }
+
+    .team-name {
+      text-align: center;
+      font-weight: 500;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    .vs {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    .odds {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    .odd {
+      background: rgba(255,255,255,0.1);
+      padding: 0.8rem;
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .odd:hover {
+      background: var(--primary);
+      transform: scale(1.05);
+    }
+
+    .odd-label {
+      font-size: 0.8rem;
+      opacity: 0.8;
+      margin-bottom: 0.3rem;
+    }
+
+    .odd-value {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .match-footer {
+      padding: 1rem;
+      background: rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .match-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .match-actions button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.85rem;
+    }
+
+    .btn-bet {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-bet:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-favorite {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .btn-favorite:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .btn-favorite.active {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .match-stats {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .live-badge {
+      background: var(--live);
+      color: white;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    /* Live Streams Section */
+    .live-streams {
+      padding: 2rem 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .streams-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .stream-card {
+      background: var(--dark-light);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stream-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    .stream-thumbnail {
+      position: relative;
+      height: 180px;
+      background: #000;
+    }
+
+    .stream-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+    }
+
+    .stream-live {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--live);
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .stream-viewers {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .stream-info {
+      padding: 1rem;
+    }
+
+    .stream-title {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .stream-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    /* Betslip Styles */
+    .betslip {
+      position: fixed;
+      bottom: 0;
+      right: 20px;
+      width: 350px;
+      background: var(--dark-light);
+      border-radius: 10px 10px 0 0;
+      box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+      transform: translateY(calc(100% - 40px));
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+
+    .betslip.active {
+      transform: translateY(0);
+    }
+
+    .betslip-header {
+      background: var(--primary);
+      padding: 0.8rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .betslip-title {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+    }
+
+    .betslip-count {
+      background: white;
+      color: var(--primary);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .betslip-body {
+      padding: 1rem;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .bet-item {
+      background: rgba(0,0,0,0.2);
+      padding: 1rem;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+    }
+
+    .bet-teams {
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .bet-selection {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .bet-remove {
+      color: var(--danger);
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: color 0.3s ease;
+    }
+
+    .bet-remove:hover {
+      color: #d32f2f;
+    }
+
+    .bet-stake {
+      display: flex;
+      margin-top: 0.5rem;
+    }
+
+    .bet-stake input {
+      flex: 1;
+      padding: 0.5rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      border-radius: 5px 0 0 5px;
+      font-size: 0.9rem;
+    }
+
+    .bet-stake button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0 1rem;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .bet-stake button:hover {
+      background: var(--primary-dark);
+    }
+
+    .betslip-footer {
+      padding: 1rem;
+      background: rgba(0,0,0,0.3);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .potential-win {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .potential-win strong {
+      color: var(--accent);
+      font-size: 1rem;
+    }
+
+    .place-bet {
+      width: 100%;
+      padding: 0.8rem;
+      background: var(--accent);
+      color: var(--dark);
+      border: none;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .place-bet:hover {
+      background: var(--accent-dark);
+    }
+
+    /* Footer Styles */
+    footer {
+      background: var(--dark-light);
+      color: white;
+      padding: 3rem 2rem 2rem;
+      margin-top: 3rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-column h3 {
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-column a {
+      color: white;
+      text-decoration: none;
+      opacity: 0.8;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .footer-column a:hover {
+      opacity: 1;
+      color: var(--accent);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .social-links a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      .matches-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+      }
+      
+      nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      .user-actions {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .hero h2 {
+        font-size: 2rem;
+      }
+      
+      .matches-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .betslip {
+        width: 100%;
+        right: 0;
+      }
+      
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h2 {
+        font-size: 1.8rem;
+      }
+      
+      .cta {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .odds {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <h1>BetShujaa</h1>
+    </div>
+    
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="sports.html"><i class="fas fa-trophy"></i> Sports</a>
+      <a href="live.html"><i class="fas fa-bolt"></i> Live</a>
+      <a href="promotions.html"><i class="fas fa-star"></i> Promotions</a>
+      <a href="support.html"><i class="fas fa-headset"></i> Support</a>
+    </nav>
+    
+    <div class="user-actions">
+      <div class="balance">
+        <i class="fas fa-coins"></i>
+        KES 5,420
+      </div>
+      <a href="profile.html" class="btn btn-outline"><i class="fas fa-user"></i> Profile</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Kenya's Most Exciting Sports Betting Experience</h2>
+      <p>Bet on thousands of live events with the best odds and instant payouts</p>
+      <div class="cta">
+        <a href="#" class="btn btn-primary"><i class="fas fa-coins"></i> Deposit Now</a>
+        <a href="#" class="btn btn-accent"><i class="fas fa-gift"></i> Claim Bonus</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-bolt"></i>
+      </div>
+      <h3>Live Betting</h3>
+      <p>Bet in-play with real-time odds updates and live streaming of major events</p>
+    </div>
+    
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-mobile-alt"></i>
+      </div>
+      <h3>Mobile Friendly</h3>
+      <p>Seamless experience on any device with our optimized mobile platform</p>
+    </div>
+    
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-shield-alt"></i>
+      </div>
+      <h3>Safe & Secure</h3>
+      <p>Licensed and regulated with bank-grade security for your peace of mind</p>
+    </div>
+  </section>
+
+  <section class="sports-tabs">
+    <button class="active"><i class="fas fa-futbol"></i> Football</button>
+    <button><i class="fas fa-basketball-ball"></i> Basketball</button>
+    <button><i class="fas fa-football-ball"></i> American Football</button>
+    <button><i class="fas fa-table-tennis"></i> Tennis</button>
+    <button><i class="fas fa-flag-checkered"></i> Motorsports</button>
+    <button><i class="fas fa-gamepad"></i> Esports</button>
+    <button><i class="fas fa-ellipsis-h"></i> More</button>
+  </section>
+
+  <section class="matches-container">
+    <div class="section-header">
+      <h2><i class="fas fa-bolt"></i> Live Matches</h2>
+      <a href="#" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
+    </div>
+    
+    <div class="matches-grid">
+      <!-- Match 1 -->
+      <div class="match live">
+        <div class="match-header">
+          <div class="match-league">
+            <img src="https://via.placeholder.com/20" alt="EPL">
+            <span>English Premier League</span>
+          </div>
+          <div class="match-time">
+            <span class="live-badge"><i class="fas fa-circle"></i> LIVE</span> 63'
+          </div>
+        </div>
+        <div class="match-body">
+          <div class="teams">
+            <div class="team">
+              <img src="https://via.placeholder.com/50x50?text=ARS" alt="Arsenal" class="team-logo">
+              <span class="team-name">Arsenal</span>
+            </div>
+            <div class="vs">vs</div>
+            <div class="team">
+              <img src="https://via.placeholder.com/50x50?text=MCI" alt="Man City" class="team-logo">
+              <span class="team-name">Man City</span>
+            </div>
+          </div>
+          <div class="odds">
+            <div class="odd">
+              <div class="odd-label">1</div>
+              <div class="odd-value">3.25</div>
+            </div>
+            <div class="odd">
+              <div class="odd-label">X</div>
+              <div class="odd-value">3.40</div>
+            </div>
+            <div class="odd">
+              <div class="odd-label">2</div>
+              <div class="odd-value">2.10</div>
+            </div>
+          </div>
+        </div>
+        <div class="match-footer">
+          <div class="match-actions">
+            <button class="btn-favorite"><i class="far fa-star"></i></button>
+            <button class="btn-bet">Bet Now</button>
+          </div>
+          <div class="match-stats">
+            <span>1-1</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Match 2 -->
+      <div class="match live">
+        <div class="match-header">
+          <div class="match-league">
+            <img src="https://via.placeholder.com/20" alt="KPL">
+            <span>Kenyan Premier League</span>
+          </div>
+          <div class="match-time">
+            <span class="live-badge"><i class="fas fa-circle"></i> LIVE</span> 35'
+          </div>
+        </div>
+        <div class="match-body">
+          <div class="teams">
+            <div class="team">
+              <img src="https://via.placeholder.com/50x50?text=GOR" alt="Gor Mahia" class="team-logo">
+              <span class="team-name">Gor Mahia</span>
+            </div>
+            <div class="vs">vs</div>
+            <div class="team">
+              <img src="https://via.placeholder.com/50x50?text=AFC" alt="AFC Leopards" class="team-logo">
+              <span class="team-name">AFC Leopards</span>
+            </div>
+          </div>
+          <div class="odds">
+            <div class="odd">
+              <div class="odd-label">1</div>
+              <div class="odd-value">1.85</div>
+            </div>
+            <div class="odd">
+              <div class="odd-label">X</div>
+              <div class="odd-value">3.20</div>
+            </div>
+            <div class="odd">
+              <div class="odd-label">2</div>
+              <div class="odd-value">4.50</div>
+            </div>
+          </div>
+        </div>
+        <div class="match-footer">
+          <div class="match-actions">
+            <button class="btn-favorite active"><i class="fas fa-star"></i></button>
+            <button class="btn-bet">Bet Now</button>
+          </div>
+          <div class="match-stats">
+            <span>0-0</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Match 3 -->
+      <div class="match live">
+        <div class="match-header">
+          <div class="match-league">
+            <img src="https://via.placeholder.com/20" alt="NBA">
+            <span>NBA Basketball</span>
+          </div>
+          <div class="match-time">
+            <span class="live-badge"><i class="fas fa-circle"></i> LIVE</span> Q3
+          </div>
+        </div>
+        <div class="match-body">
+          <div class="teams">
+            <div class="team">
+              <img src="https://via.placeholder.com/50x50?text=LAL" alt="Lakers" class="team-logo">
+              <span class="team-name">LA Lakers</span>
+            </div>
+            <div class="vs">vs</div>
+            <div class="team">
+              <img src="https://via.placeholder.com/50x50?text=GSW" alt="Warriors" class="team-logo">
+              <span class="team-name">Golden State</span>
+            </div>
+          </div>
+          <div class="odds">
+            <div class="odd">
+              <div class="odd-label">1</div>
+              <div class="odd-value">1.95</div>
+            </div>
+            <div class="odd">
+              <div class="odd-label">2</div>
+              <div class="odd-value">1.85</div>
+            </div>
+          </div>
+        </div>
+        <div class="match-footer">
+          <div class="match-actions">
+            <button class="btn-favorite"><i class="far fa-star"></i></button>
+            <button class="btn-bet">Bet Now</button>
+          </div>
+          <div class="match-stats">
+            <span>78-82</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="matches-container">
+    <div class="section-header">
+      <h2><i class="fas fa-calendar-alt"></i> Upcoming Matches</h2>
+      <a href="#" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
+    </div>
+    
+    <div class="matches-grid">
+      <!-- Match 1 -->
+      <div class="match">
+        <div class="match-header">
+          <div class="match-league">
+            <img src="https://via.placeholder.com/20" alt="UCL">
+            <span>Champions League</span>
+          </div>
+          <div class="match-time">Today - 22:00</div>
+        </div>
+        <div class="match-body">
+          <div class="teams">
+            <div class="team">
+              <img src="https://via.placeholder.com/50x50?text=PSG" alt="PSG" class="team-logo">
+              <span class="team-name">PSG</span>
+            </div>
+            <div class="vs">vs</div>
+            <div class="team">
+              <img src="https://via.placeholder.com/50x50?text=FCB" alt="Barcelona" class="team-logo">
+              <span class="team-name">Barcelona</span>
+            </div>
+          </div>
+          <div class="odds">
+            <div class="odd">
+              <div class="odd-label">1</div>
+              <div class="odd-value">2.40</div>
+            </div>
+            <div class="odd">
+              <div class="odd-label">X</div>
+              <div class="odd-value">3.50</div>
+            </div>
+            <div class="odd">
+              <div class="odd-label">2</div>
+              <div class="odd-value">2.80</div>
+            </div>
+          </div>
+        </div>
+        <div class="match-footer">
+          <div class="match-actions">
+            <button class="btn-favorite"><i class="far fa-star"></i></button>
+            <button class="btn-bet">Bet Now</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Match 2 -->
+      <div class="match">
+        <div class="match-header">
+          <div class="match-league">
+            <img src="https://via.placeholder.com/20" alt="KPL">
+            <span>Kenyan Premier League</span>
+          </div>
+          <div class="match-time">Tomorrow - 15:00</div>
+        </div>
+        <div class="match-body">
+          <div class="teams">
+            <div class="team">
+              <img src="https://via.placeholder.com/50x50?text=TUS" alt="Tusker" class="team-logo">
+              <span class="team-name">Tusker FC</span>
+            </div>
+            <div class="vs">vs</div>
+            <div class="team">
+              <img src="https://via.placeholder.com/50x50?text=SOF" alt="Sofapaka" class="team-logo">
+              <span class="team-name">Sofapaka</span>
+            </div>
+          </div>
+          <div class="odds">
+            <div class="odd">
+              <div class="odd-label">1</div>
+              <div class="odd-value">1.65</div>
+            </div>
+            <div class="odd">
+              <div class="odd-label">X</div>
+              <div class="odd-value">3.40</div>
+            </div>
+            <div class="odd">
+              <div class="odd-label">2</div>
+              <div class="odd-value">5.00</div>
+            </div>
+          </div>
+        </div>
+        <div class="match-footer">
+          <div class="match-actions">
+            <button class="btn-favorite"><i class="far fa-star"></i></button>
+            <button class="btn-bet">Bet Now</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Match 3 -->
+      <div class="match">
+        <div class="match-header">
+          <div class="match-league">
+            <img src="https://via.placeholder.com/20" alt="NFL">
+            <span>NFL Football</span>
+          </div>
+          <div class="match-time">Sun - 02:30</div>
+        </div>
+        <div class="match-body">
+          <div class="teams">
+            <div class="team">
+              <img src="https://via.placeholder.com/50x50?text=KC" alt="Chiefs" class="team-logo">
+              <span class="team-name">Kansas City</span>
+            </div>
+            <div class="vs">vs</div>
+            <div class="team">
+              <img src="https://via.placeholder.com/50x50?text=SF" alt="49ers" class="team-logo">
+              <span class="team-name">San Francisco</span>
+            </div>
+          </div>
+          <div class="odds">
+            <div class="odd">
+              <div class="odd-label">1</div>
+              <div class="odd-value">1.90</div>
+            </div>
+            <div class="odd">
+              <div class="odd-label">2</div>
+              <div class="odd-value">1.90</div>
+            </div>
+          </div>
+        </div>
+        <div class="match-footer">
+          <div class="match-actions">
+            <button class="btn-favorite"><i class="far fa-star"></i></button>
+            <button class="btn-bet">Bet Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Betslip -->
+  <div class="betslip">
+    <div class="betslip-header">
+      <div class="betslip-title">
+        <i class="fas fa-ticket-alt"></i> Bet Slip
+        <div class="betslip-count">3</div>
+      </div>
+      <i class="fas fa-chevron-up"></i>
+    </div>
+    <div class="betslip-body">
+      <!-- Bet 1 -->
+      <div class="bet-item">
+        <div class="bet-teams">Gor Mahia vs AFC Leopards</div>
+        <div class="bet-selection">
+          <span>Gor Mahia to Win @1.85</span>
+          <span class="bet-remove"><i class="fas fa-times"></i></span>
+        </div>
+        <div class="bet-stake">
+          <input type="number" placeholder="Stake (KES)" value="100">
+          <button><i class="fas fa-check"></i></button>
+        </div>
+      </div>
+      
+      <!-- Bet 2 -->
+      <div class="bet-item">
+        <div class="bet-teams">Arsenal vs Man City</div>
+        <div class="bet-selection">
+          <span>Over 2.5 Goals @1.90</span>
+          <span class="bet-remove"><i class="fas fa-times"></i></span>
+        </div>
+        <div class="bet-stake">
+          <input type="number" placeholder="Stake (KES)" value="150">
+          <button><i class="fas fa-check"></i></button>
+        </div>
+      </div>
+      
+      <!-- Bet 3 -->
+      <div class="bet-item">
+        <div class="bet-teams">Lakers vs Warriors</div>
+        <div class="bet-selection">
+          <span>Warriors -4.5 @1.95</span>
+          <span class="bet-remove"><i class="fas fa-times"></i></span>
+        </div>
+        <div class="bet-stake">
+          <input type="number" placeholder="Stake (KES)" value="200">
+          <button><i class="fas fa-check"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="betslip-footer">
+      <div class="potential-win">
+        <span>Potential Win:</span>
+        <strong>KES 1,027.50</strong>
+      </div>
+      <button class="place-bet pulse"><i class="fas fa-coins"></i> Place Bet (KES 450)</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Sports</h3>
+        <ul>
+          <li><a href="#"><i class="fas fa-futbol"></i> Football</a></li>
+          <li><a href="#"><i class="fas fa-basketball-ball"></i> Basketall</a></li>
+          <li><a href="#"><i class="fas fa-table-tennis"></i> Tennis</a></li>
+          <li><a href="#"><i class="fas fa-football-ball"></i> Rugby</a></li>
+          <li><a href="#"><i class="fas fa-gamepad"></i> Esports</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>BetShujaa</h3>
+        <ul>
+          <li><a href="#"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="#"><i class="fas fa-shield-alt"></i> Responsible Gaming</a></li>
+          <li><a href="#"><i class="fas fa-lock"></i> Privacy Policy</a></li>
+          <li><a href="#"><i class="fas fa-file-alt"></i> Terms & Conditions</a></li>
+          <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Help</h3>
+        <ul>
+          <li><a href="#"><i class="fas fa-question-circle"></i> FAQs</a></li>
+          <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+          <li><a href="#"><i class="fas fa-book"></i> How to Bet</a></li>
+          <li><a href="#"><i class="fas fa-credit-card"></i> Payment Methods</a></li>
+          <li><a href="#"><i class="fas fa-gift"></i> Bonuses</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="#"><i class="fas fa-envelope"></i> help@betshujaa.co.ke</a></li>
+          <li><a href="#"><i class="fas fa-phone"></i> +254 700 123456</a></li>
+          <li><a href="#"><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</a></li>
+        </ul>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      <p>&copy; 2025 BetShujaa. Licensed by the Betting Control and Licensing Board of Kenya. No under 18s.</p>
+      <p>Proudly Kenyan 🇰🇪</p>
+    </div>
+  </footer>
+
+  <script>
+    // Toggle betslip
+    document.querySelector('.betslip-header').addEventListener('click', function() {
+      document.querySelector('.betslip').classList.toggle('active');
+      const icon = this.querySelector('i');
+      if (document.querySelector('.betslip').classList.contains('active')) {
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+      } else {
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+      }
+    });
+    
+    // Toggle favorite buttons
+    document.querySelectorAll('.btn-favorite').forEach(btn => {
+      btn.addEventListener('click', function() {
+        this.classList.toggle('active');
+        const icon = this.querySelector('i');
+        if (this.classList.contains('active')) {
+          icon.classList.remove('far');
+          icon.classList.add('fas');
+        } else {
+          icon.classList.remove('fas');
+          icon.classList.add('far');
+        }
+      });
+    });
+    
+    // Simulate bet selection
+    document.querySelectorAll('.odd').forEach(odd => {
+      odd.addEventListener('click', function() {
+        this.classList.toggle('selected');
+      });
+    });
+    
+    // Simulate adding to betslip
+    document.querySelectorAll('.btn-bet').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const betslipCount = document.querySelector('.betslip-count');
+        let count = parseInt(betslipCount.textContent);
+        betslipCount.textContent = count + 1;
+        
+        // Pulse animation
+        betslipCount.classList.add('pulse');
+        setTimeout(() => {
+          betslipCount.classList.remove('pulse');
+        }, 1000);
+      });
+    });
+  </script>
+</body>
+</html>
